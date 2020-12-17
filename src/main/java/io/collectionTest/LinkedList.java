@@ -1,5 +1,9 @@
 package io.collectionTest;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class LinkedList {
 	
 	static class ListNode { //public->static.. test클래스 문제
@@ -24,18 +28,24 @@ public class LinkedList {
 
 	// add
 	public ListNode add(ListNode head, ListNode nodeToAdd, int position) {// 가장 앞의 노드, 추가할노드, 추가할노드의 인덱스
+		
+		if(head == null) return nodeToAdd;
+		
+		//addFirst
+		if(position==0) {
+			nodeToAdd.next = head;
+			return nodeToAdd;
+		}
+		
 		ListNode x = head;
-
-		for (int i = 0; i < position - 1; i++) { // 추가할 노드의 이전노드를 구한다.
+		for (int i = 0; i < position-1; i++) { // 추가할 노드의 이전노드를 구한다.
 			x = x.next;
 		}
-		ListNode tmp1 = x;
-		ListNode tmp2 = tmp1.next;
+		
+		nodeToAdd.next = x.next;
+		x.next = nodeToAdd;
 
-		tmp1 = nodeToAdd;
-		nodeToAdd.next = tmp2;
-
-		return nodeToAdd;
+		return head;
 	}
 
 	// remove
@@ -71,6 +81,25 @@ public class LinkedList {
 		}
 
 		return false;
+	}
+	
+	public String toString(ListNode head) {
+		if(head == null) return "";
+		
+		List<String> nodes = new ArrayList<>();
+		ListNode tmp = head;
+		
+		while(head != null) {
+			nodes.add(String.valueOf(head.data));
+			head = head.next;
+		}
+		head = tmp;
+		int size=0;
+		String[] array = new String[nodes.size()];
+		for(String print : nodes) {
+			array[size++] = print;
+		}
+		return Arrays.toString(array);
 	}
 
 }
