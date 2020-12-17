@@ -13,7 +13,7 @@ class LinkedListTest {
 	private LinkedList list;
 	private ListNode head;
 	
-	@BeforeEach //각 메서드들이 동작하기 전에 실행되는 구문
+	@BeforeEach //각 메서드들이 동작하기 전에 실행되는 구문 
 	public void init() {
 		list = new LinkedList();
 		head = list.add(null, new ListNode(20), 0);
