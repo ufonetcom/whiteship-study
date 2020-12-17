@@ -14,21 +14,28 @@ public class ArrayStack {
       this.stackArr=new int[size];
    }
    
-   //data push
+   public ArrayStack() {}
+
+//data push
    public void push(int data) {
-      //만약 stack이 data로 꽉 채워졌을때 배열복사를 진행하여 현재크기의 2배를 늘려준다.
-      if(stackArr.length==top+1) {
-         stackArr = Arrays.copyOf(stackArr, stackArr.length*2); //vector의 상속받기 때문에 2배를 확장.
-         size = stackArr.length;
-      }
-      
-      stackArr[++top] = data; //[++top]을 이용하여 증가된 top값에 바로 data를 삽입한다.
+       if(top==-1) {
+    	   stackArr = new int[] {data};
+    	   size++;
+    	   top++;
+    	   return;
+       }
+       
+	   //stack이 하나이상 채워저 있을때 배열(stack 공간)을 +1의 길이로 복사하여 확장시킨다.
+	   stackArr = Arrays.copyOf(stackArr, stackArr.length+1);
+	   size = stackArr.length;
+     
+       stackArr[++top] = data; //[++top]을 이용하여 증가된 top값에 바로 data를 삽입한다.
    }
    
    //data peek
    public int peek() {
       //stack이 비어있다면 반환해야 할 맨 꼭대기 값이 존재하지 않으므로 오류를 발생시킨다.
-      if(size==0) {
+      if(stackArr==null) {
          throw new EmptyStackException();
       }
       return stackArr[top];
@@ -36,10 +43,23 @@ public class ArrayStack {
    
    //data pop
    public int pop() {
+	  //pop할 원소가 없는 경우
       if(top==-1) {
          throw new EmptyStackException();
       }
-      return stackArr[top--]; //[top--]를 이용하여 값을 반환 시키고 top 감소.
+      //stackArr원소가 1개인 경우
+      if(top==0) {
+    	  int result = stackArr[top--];
+    	  stackArr = null;
+    	  return result;
+      }
+      
+      int tmp[] = stackArr.clone();
+      stackArr = new int[--size];
+      for(int i=0; i<size; i++) {
+    	  stackArr[i] = tmp[i];
+      }
+      return tmp[top--]; //[top--]를 이용하여 값을 반환 시키고 top 감소.
    }
    
    //StackArr toString
