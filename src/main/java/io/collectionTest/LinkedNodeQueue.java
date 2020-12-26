@@ -7,7 +7,6 @@ public class LinkedNodeQueue {
 	private ListNode tail;
 	private int queueSize = 0;
 	
-	
 	public class ListNode{
 		int data;
 		ListNode next;
@@ -17,6 +16,7 @@ public class LinkedNodeQueue {
 			this.next = null;
 		}
 	}
+	
 	
 	public void enqueue(int data) {
 		ListNode x = new ListNode(data);
@@ -29,19 +29,6 @@ public class LinkedNodeQueue {
 			temp.next = tail;
 		}
 		queueSize++;
-	}
-	
-	//toString과 흡사한 메서드.
-	public void checkQueue() {
-		ListNode check = head;
-		int[] checkArr = new int[queueSize];
-		int index=0;
-		while(check != null) {
-			checkArr[index]=check.data;
-			check = check.next;
-			index++;
-		}
-		System.out.println(Arrays.toString(checkArr));
 	}
 	
 	public int dequeue() {
@@ -57,5 +44,20 @@ public class LinkedNodeQueue {
 		}
 		
 	}
+	
+	
+	//toString과 흡사한 메서드.
+	public String toString() {
+		ListNode check = head;
+		int[] checkArr = new int[queueSize];
+		int index=0;
+		while(check != null) {
+			checkArr[index]=check.data;
+			check = check.next;
+			index++;
+		}
+		return Arrays.toString(checkArr);
+	}
+	
 	
 }
