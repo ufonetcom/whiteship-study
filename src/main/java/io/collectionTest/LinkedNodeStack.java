@@ -30,22 +30,26 @@ public class LinkedNodeStack {
 	      x.next = new ListNode(data);
 	   }
 	   
+	   
 	   public int pop() {
 	      int popData;
+	      
 	      if(head==null) { throw new IndexOutOfBoundsException(); }
+	      
 	      if(stackSize==1) {
 	         popData = head.data;
 	         head = null;
 	         stackSize = 0;
 	         return popData;
 	      }
+	      
 	      //위과정과 동일
 	      ListNode x = head;
 	      for(int i=1; i<stackSize-1; i++) {
 	         x = x.next;
 	      }
 	      popData = x.next.data;
-	      
+	      x.next = null; //삭제할 노드 이전노드의 next를 null로 초기화(x의 다음노드가 삭제되기 때문에)
 	      stackSize -= 1;
 	      
 	      return popData;
@@ -58,6 +62,7 @@ public class LinkedNodeStack {
 	         return "["+String.valueOf(head.data)+"]";
 	      }
 	      
+	      ListNode tmp = head;
 	      String result = "["+String.valueOf(head.data);
 	      
 	      while(head.next != null) {
@@ -65,6 +70,9 @@ public class LinkedNodeStack {
 	    	  result += String.valueOf(", "+head.data);
 	      }
 	      result += "]";
+	      head = tmp; //이부분이 중요! junit테스트에서 pushTest진행시 system.out.println으로 
+	      //요소 출력테스트를 해볼때 nstack.tostring()을 한번 돌리면 head는 stack의 탑값으로 된다.
+	      //이때 tmp에 미리 저장시켜놓은 head를 다시 stack의 맨 밑에 값으로 초기화 시켜준다.
 	      
 	      return result;
 	   }
