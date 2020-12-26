@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Order;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation.class)
-@DisplayName("정수형 배열 큐 테스트")
+@DisplayName("노드 큐 테스트")
 class LinkedNodeQueueTest {
 	LinkedNodeQueue nqueue;
 	
